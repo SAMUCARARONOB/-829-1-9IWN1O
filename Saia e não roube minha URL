@@ -59,7 +59,7 @@ ScrollingFrame.Position = UDim2.new(0, 20, 0, 60)
 ScrollingFrame.CanvasSize = UDim2.new(0, 0, 1, 0)
 ScrollingFrame.ScrollBarThickness = 8
 ScrollingFrame.BackgroundColor3 = Color3.fromRGB(150, 150, 0)
-ScrollingFrame.BackgroundTransparency = 0.4
+ScrollingFrame.BackgroundTransparency = 0.5
 
 UIGridLayout.Parent = ScrollingFrame
 UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -84,7 +84,7 @@ local function createDetailedButton(scriptInfo)
     Button.Text = scriptInfo[1]
     Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Button.BorderSizePixel = 0
-    Button.TextColor3 = Color3.fromRGB(0, 100, 0)
+    Button.TextColor3 = Color3.fromRGB(0, 255, 255)
     Button.Font = Enum.Font.GothamBold
     Button.TextScaled = true
 
@@ -106,11 +106,11 @@ local function createDetailedButton(scriptInfo)
     ButtonGradient.Parent = Button
 
     Button.MouseEnter:Connect(function()
-        Button.TextColor3 = Color3.fromRGB(0, 255, 255)
+        Button.TextColor3 = Color3.fromRGB(255, 0, 0)
     end)
 
     Button.MouseLeave:Connect(function()
-        Button.TextColor3 = Color3.fromRGB(255, 255, 0)
+        Button.TextColor3 = Color3.fromRGB(0, 255, 255)
     end)
 
     Button.MouseButton1Click:Connect(function()
