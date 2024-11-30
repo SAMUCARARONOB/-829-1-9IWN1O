@@ -45,13 +45,13 @@ TitleLabel.TextSize = 24
 TitleLabel.TextStrokeTransparency = 0.5
 
 HideButton.Parent = TitleBar
-HideButton.Size = UDim2.new(0, 80, 0, 30)
+HideButton.Size = UDim2.new(0, 60, 0, 20)
 HideButton.Position = UDim2.new(0.9, 0, 0.5, -15)
 HideButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 HideButton.Text = "Hide"
 HideButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 HideButton.Font = Enum.Font.GothamBold
-HideButton.TextSize = 14
+HideButton.TextSize = 12
 
 ScrollingFrame.Parent = MainFrame
 ScrollingFrame.Size = UDim2.new(1, -40, 1, -80)
