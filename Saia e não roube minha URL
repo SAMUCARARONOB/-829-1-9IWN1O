@@ -1,0 +1,175 @@
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local TitleBar = Instance.new("Frame")
+local TitleLabel = Instance.new("TextLabel")
+local ConfigButton = Instance.new("TextButton")
+local HideButton = Instance.new("TextButton")
+local ScrollingFrame = Instance.new("ScrollingFrame")
+local UIGridLayout = Instance.new("UIGridLayout")
+local UICorner = Instance.new("UICorner")
+local UIStroke = Instance.new("UIStroke")
+local Shadow = Instance.new("ImageLabel")
+local TweenService = game:GetService("TweenService")
+local dragging, dragInput, dragStart, startPos
+
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+MainFrame.Parent = ScreenGui
+MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+MainFrame.Size = UDim2.new(0, 555, 0, 333)
+MainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+MainFrame.BackgroundTransparency = 0.1
+
+UICorner.CornerRadius = UDim.new(0, 20)
+UICorner.Parent = MainFrame
+
+UIStroke.Color = Color3.fromRGB(255, 255, 255)
+UIStroke.Thickness = 4
+UIStroke.Parent = MainFrame
+
+TitleBar.Parent = MainFrame
+TitleBar.Size = UDim2.new(1, 0, 0, 50)
+TitleBar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TitleBar.BackgroundTransparency = 1
+
+TitleLabel.Parent = TitleBar
+TitleLabel.Size = UDim2.new(0.6, 0, 1, 0)
+TitleLabel.Position = UDim2.new(0, 10, 0, 0)
+TitleLabel.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+TitleLabel.BackgroundTransparency = 1
+TitleLabel.Text = "PETS GO! SCRIPTS"
+TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 0)
+TitleLabel.Font = Enum.Font.GothamBold
+TitleLabel.TextSize = 24
+TitleLabel.TextStrokeTransparency = 0.5
+
+HideButton.Parent = TitleBar
+HideButton.Size = UDim2.new(0, 80, 0, 30)
+HideButton.Position = UDim2.new(0.9, 0, 0.5, -15)
+HideButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+HideButton.Text = "Hide"
+HideButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+HideButton.Font = Enum.Font.GothamBold
+HideButton.TextSize = 14
+
+ScrollingFrame.Parent = MainFrame
+ScrollingFrame.Size = UDim2.new(1, -40, 1, -80)
+ScrollingFrame.Position = UDim2.new(0, 20, 0, 60)
+ScrollingFrame.CanvasSize = UDim2.new(0, 0, 1, 0)
+ScrollingFrame.ScrollBarThickness = 8
+ScrollingFrame.BackgroundColor3 = Color3.fromRGB(150, 150, 0)
+ScrollingFrame.BackgroundTransparency = 0.4
+
+UIGridLayout.Parent = ScrollingFrame
+UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIGridLayout.CellSize = UDim2.new(0.25, -5, 0, 60)
+UIGridLayout.CellPadding = UDim2.new(0, 5, 0, 10)
+
+local scripts = {
+    {"FlyHack", "https://raw.githubusercontent.com/PetsGoScripts/FlyHack/main/script.lua"},
+    {"NoClip", "https://raw.githubusercontent.com/PetsGoScripts/NoClip/main/script.lua"},
+    {"SpeedHack", "https://raw.githubusercontent.com/PetsGoScripts/SpeedHack/main/script.lua"},
+    {"Teleport", "https://raw.githubusercontent.com/PetsGoScripts/Teleport/main/script.lua"},
+    {"ESP", "https://raw.githubusercontent.com/PetsGoScripts/ESP/main/script.lua"},
+    {"GUI", "https://raw.githubusercontent.com/PetsGoScripts/GUI/main/script.lua"},
+    {"PETS-GO", "https://raw.githubusercontent.com/Ttle2a/PETS-GO-Script/main/script.lua"},
+    {"Exodus", "https://raw.githubusercontent.com/PetsGoScripts/Exodus/main/script.lua"},
+    {"Kittyware", "https://raw.githubusercontent.com/PetsGoScripts/Kittyware/main/script.lua"},
+    {"Main", "https://raw.githubusercontent.com/PetsGoScripts/Main/main/script.lua"}
+}
+local function createDetailedButton(scriptInfo)
+    local Button = Instance.new("TextButton")
+    Button.Parent = ScrollingFrame
+    Button.Text = scriptInfo[1]
+    Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Button.BorderSizePixel = 0
+    Button.TextColor3 = Color3.fromRGB(0, 100, 0)
+    Button.Font = Enum.Font.GothamBold
+    Button.TextScaled = true
+
+    local ButtonCorner = Instance.new("UICorner")
+    ButtonCorner.CornerRadius = UDim.new(0, 10)
+    ButtonCorner.Parent = Button
+
+    local ButtonStroke = Instance.new("UIStroke")
+    ButtonStroke.Color = Color3.fromRGB(0, 0, 0)
+    ButtonStroke.Thickness = 2
+    ButtonStroke.Parent = Button
+
+    local ButtonGradient = Instance.new("UIGradient")
+    ButtonGradient.Color = ColorSequence.new{
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 255))
+    }
+    ButtonGradient.Rotation = 45
+    ButtonGradient.Parent = Button
+
+    Button.MouseEnter:Connect(function()
+        Button.TextColor3 = Color3.fromRGB(255, 255, 0)
+    end)
+
+    Button.MouseLeave:Connect(function()
+        Button.TextColor3 = Color3.fromRGB(0, 150, 0)
+    end)
+
+    Button.MouseButton1Click:Connect(function()
+        loadstring(game:HttpGet(scriptInfo[2]))()
+    end)
+
+    local tweenService = game:GetService("TweenService")
+    local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut, -1, true)
+    local goal = {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}
+    local tween = tweenService:Create(Button, tweenInfo, goal)
+    tween:Play()
+end
+
+for i = 1, #scripts do
+    createDetailedButton(scripts[i])
+end
+
+local function updateCanvasSize()
+    ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, UIGridLayout.AbsoluteContentSize.Y)
+end
+
+ScrollingFrame.ChildAdded:Connect(updateCanvasSize)
+ScrollingFrame.ChildRemoved:Connect(updateCanvasSize)
+updateCanvasSize()
+
+local function update(input)
+    local delta = input.Position - dragStart
+    MainFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+end
+
+MainFrame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = MainFrame.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+MainFrame.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        dragInput = input
+    end
+end)
+
+game:GetService("UserInputService").InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        update(input)
+    end
+end)
+
+HideButton.MouseButton1Click:Connect(function()
+    MainFrame.Visible = not MainFrame.Visible
+end)
+
+ConfigButton.MouseButton1Click:Connect(function()
+    print("Configuração aberta")  -- Substitua isso com a lógica de configuração desejada
+end)
