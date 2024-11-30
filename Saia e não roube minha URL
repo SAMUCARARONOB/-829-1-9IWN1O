@@ -100,17 +100,17 @@ local function createDetailedButton(scriptInfo)
     local ButtonGradient = Instance.new("UIGradient")
     ButtonGradient.Color = ColorSequence.new{
         ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 255))
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 0))
     }
     ButtonGradient.Rotation = 45
     ButtonGradient.Parent = Button
 
     Button.MouseEnter:Connect(function()
-        Button.TextColor3 = Color3.fromRGB(255, 255, 0)
+        Button.TextColor3 = Color3.fromRGB(0, 255, 255)
     end)
 
     Button.MouseLeave:Connect(function()
-        Button.TextColor3 = Color3.fromRGB(0, 150, 0)
+        Button.TextColor3 = Color3.fromRGB(255, 255, 0)
     end)
 
     Button.MouseButton1Click:Connect(function()
