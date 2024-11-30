@@ -76,7 +76,9 @@ local scripts = {
     {"PETS-GO", "https://raw.githubusercontent.com/Ttle2a/PETS-GO-Script/main/script.lua"},
     {"Exodus", "https://raw.githubusercontent.com/PetsGoScripts/Exodus/main/script.lua"},
     {"Kittyware", "https://raw.githubusercontent.com/PetsGoScripts/Kittyware/main/script.lua"},
-    {"Main", "https://raw.githubusercontent.com/PetsGoScripts/Main/main/script.lua"}
+    {"Main", "https://raw.githubusercontent.com/PetsGoScripts/Main/main/script.lua"},
+    {"ULTIMATEGUI", "https://raw.githubusercontent.com/PetsGoScripts/UltimateGUI/main/script.lua"},
+    {"AUTOFARM-OP", "https://raw.githubusercontent.com/PetsGoScripts/AutofarmOP/main/script.lua"}
 }
 local function createDetailedButton(scriptInfo)
     local Button = Instance.new("TextButton")
